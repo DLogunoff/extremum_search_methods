@@ -1,5 +1,9 @@
-from math import log, exp
+from math import exp, log
+
 from prettytable import PrettyTable
+
+import numpy as np
+import matplotlib.pyplot as plt
 
 
 def Output(a, b, n, n_exp, eps, h):
@@ -34,6 +38,8 @@ def extremum(a, b):
 
 
 def bisection(a, b):
+    extremums = []
+    functions = []
     n = 0
     eps = (b - a) / 1000
     h = 0.1 * eps
@@ -49,12 +55,36 @@ def bisection(a, b):
         else:
             b = b1
         tableBis(n, a, a1, b, b1, fa1, fb1)
+        extremums.append(extremum(a, b))
+        functions.append(calculate_function(extremums[-1]))
     print(headersBis)
-    return Output(a, b, n, n_expected, eps, h)
+    return Output(a, b, n, n_expected, eps, h), extremums, functions
+
+
+def get_points_size(points, max_size, min_size):
+    result = []
+    amount = len(points)
+    decrement_of_size = (max_size - min_size) / (amount//2)
+    i = 0
+    while i != amount:
+        if i <= amount // 2:
+            result.append(max_size - decrement_of_size * i)
+        else:
+            result.append(min_size)
+        i += 1
+    return result
 
 
 if __name__ == '__main__':
     headersBis = PrettyTable(['№', 'a', 'a1', 'b', 'b1', 'fa1', 'fb1', 'b-a'])
     start = 0
-    end = 5
-    print(f'Метод деления пополая\n{bisection(start, end)}')
+    end = 3
+    info, extremum_coord, extremum_func = bisection(start, end)
+    print(f'Метод деления пополая\n{info}')
+    x_axis = np.arange(start, end, 0.0001)
+    y_axis = list(map(calculate_function, x_axis))
+    plt.plot(x_axis, y_axis, 'blue')
+    scatter = get_points_size(extremum_coord, 100, 10)
+    plt.scatter(extremum_coord, extremum_func, s=scatter, color='red')
+    plt.show()
+
