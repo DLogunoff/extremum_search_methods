@@ -1,9 +1,8 @@
 from math import exp, log
 
-from prettytable import PrettyTable
-
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
+from prettytable import PrettyTable
 
 
 def Output(a, b, n, n_exp, eps, h):
