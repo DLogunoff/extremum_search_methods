@@ -1,4 +1,5 @@
-from math import exp, pow, sqrt
+from math import sqrt
+
 import matplotlib.pyplot as plt
 import numpy as np
 from prettytable import PrettyTable
