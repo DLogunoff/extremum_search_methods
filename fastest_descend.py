@@ -24,7 +24,7 @@ def output(x1, x2, count, eps_grad):
 
 def function(x1, x2):
     return 10 * x1 * x1 + 2 * x2 * x2 - 2 * x1 - 2 * x2 + 1 - 4 * x1 * x2
-    #return (22 * x1 + 0.1 * x2 + exp(4.84 * pow(x1, 2) + 1.2 * pow(x2, 2)))
+    #return 22 * x1 + 0.1 * x2 + np.exp(4.84 * x1 * x1 + 1.2 * x2 * x2)
 
 
 
@@ -49,7 +49,6 @@ def ort(grad0, grad1):
 
 
 def gss(a, b, gradient, x1, x2, eps, s):
-    b0 = b
     interval = (b - a)
     a1 = a + interval * (1 - s)
     b1 = a + interval * s
